@@ -5,9 +5,11 @@ using System.Text;
 
 namespace NanoVirus
 {
+    /// <summary>
+    /// The virus 
+    /// </summary>
     class Virus
     {
-
         private Position currentPosition;
 
         public Position CurrentPosition

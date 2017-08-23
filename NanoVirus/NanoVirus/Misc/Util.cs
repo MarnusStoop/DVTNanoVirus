@@ -5,15 +5,18 @@ using System.Text;
 
 namespace NanoVirus
 {
+    /// <summary>
+    /// Contains various commonly used functions
+    /// </summary>
     public static class Util
     {
 
         /// <summary>
-        /// 
+        /// Calculates the distance between two cells
         /// </summary>
         /// <param name="c1">Position of the first cell</param>
         /// <param name="c2">Position of the second cell</param>
-        /// <returns></returns>
+        /// <returns>The distance between the cells</returns>
         public static int CalculateDistance(Position c1, Position c2)
         {
             double xDifference = Math.Pow((c1.X - c2.X), 2);

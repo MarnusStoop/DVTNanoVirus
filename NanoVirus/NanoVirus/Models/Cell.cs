@@ -5,6 +5,9 @@ using System.Text;
 
 namespace NanoVirus
 {
+    /// <summary>
+    /// The cell with its position and type
+    /// </summary>
     public class Cell
     {
         private Position position;

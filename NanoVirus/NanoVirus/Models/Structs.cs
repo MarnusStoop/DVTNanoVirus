@@ -5,6 +5,9 @@ using System.Text;
 
 namespace NanoVirus
 {
+    /// <summary>
+    /// The representation of the cell or virus position
+    /// </summary>
     public struct Position
     {
         private int x;
@@ -40,14 +43,20 @@ namespace NanoVirus
         {
             return string.Format("X:{0} Y:{1} Z:{2}", X, Y, Z);
         }
-
+        /// <summary>
+        /// Checks whether two positions are equal
+        /// </summary>
+        /// <param name="other">The position to compare</param>
+        /// <returns>Whether the positions match</returns>
         public bool SamePosition(Position other)
         {
             return other.X == X && other.Y == Y && other.Z == Z;
         }
 
     }
-
+    /// <summary>
+    /// The cell and its distance from the origin cell
+    /// </summary>
     public struct CellDistance
     {
         public Cell cell;

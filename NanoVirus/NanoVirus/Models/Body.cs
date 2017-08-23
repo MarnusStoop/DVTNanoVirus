@@ -5,6 +5,9 @@ using System.Text;
 
 namespace NanoVirus
 {
+    /// <summary>
+    /// The body that contains the algorithm and cell data
+    /// </summary>
     class Body
     {
         List<Cell> allCells;
@@ -35,6 +38,9 @@ namespace NanoVirus
             this.appStateFilePath = appStateFilePath;
         }
 
+        /// <summary>
+        /// Generates the cells and virus
+        /// </summary>
         public void GenerateBody()
         {
             allCells = new List<Cell>();
@@ -50,6 +56,9 @@ namespace NanoVirus
             nanoVirus = new Virus(startingCell.Position);
         }
 
+        /// <summary>
+        /// Assigns the various cells to lists and calculates how many cells remain
+        /// </summary>
         private void CalculateCellStats()
         {
             redBloodCells = new List<Cell>();
@@ -68,6 +77,10 @@ namespace NanoVirus
             tumorousCellsRemaining = tumorousCells.Count;
         }
 
+        /// <summary>
+        /// Generates a random position for the cells
+        /// </summary>
+        /// <returns>A position with x,y and z values between 1 and 5000</returns>
         private Position GenerateRandomPosition()
         {
             int x = r.Next(1, 5001);
@@ -77,6 +90,10 @@ namespace NanoVirus
             return new Position(x, y, z);
         }
 
+        /// <summary>
+        /// Generates a random cell type with the probabilites for tumorous,red and white cells of 5,70 and 25 respectively
+        /// </summary>
+        /// <returns></returns>
         private CellType GenerateRandomCellType()
         {
             int rolled = r.Next(1, 101);
@@ -93,12 +110,19 @@ namespace NanoVirus
             return CellType.RedBloodCell;
         }
 
+        /// <summary>
+        /// Selects a random red blood cell for the virus to spawn on
+        /// </summary>
+        /// <returns>The selected red blood cell</returns>
         private Cell SelectStartingRedBloodCell()
         {
             int cellSelected = r.Next(0, redBloodCells.Count);
             return redBloodCells[cellSelected];
         }
 
+        /// <summary>
+        /// Starts to run the various algorithms and checks whether the game is over
+        /// </summary>
         public void StartVirus()
         {
             while (tumorousCellsRemaining > 0 && healthyCellsRemaining > 0)
@@ -126,6 +150,9 @@ namespace NanoVirus
             }
         }
 
+        /// <summary>
+        /// Activates the tumorous algorithm and infects nearby cells
+        /// </summary>
         private void SpreadTumorousCells()
         {
             foreach (var item in tumorousCells)
@@ -139,6 +166,11 @@ namespace NanoVirus
             }
         }
 
+        /// <summary>
+        /// Finds the nearest healthy cell, checks for red first and then white
+        /// </summary>
+        /// <param name="tumorousCellPos">The position of the tumorous cell</param>
+        /// <returns>The nearest healthy cell</returns>
         private Cell FindNearestHealthyCell(Position tumorousCellPos)
         {
             Cell nearestCell = null;
@@ -170,6 +202,9 @@ namespace NanoVirus
             return nearestCell;
         }
 
+        /// <summary>
+        /// Runs the virus algorithm and decides what to do
+        /// </summary>
         private void ActivateVirus()
         {
             if (previousAction != VirusAction.Attack)
@@ -201,6 +236,10 @@ namespace NanoVirus
             }
         }
 
+        /// <summary>
+        /// Moves the virus to a cell
+        /// </summary>
+        /// <param name="cellToMoveTo">The cell to move to</param>
         private void MoveToCell(Cell cellToMoveTo)
         {
             if (cellToMoveTo != null)
@@ -210,6 +249,10 @@ namespace NanoVirus
             }
         }
 
+        /// <summary>
+        /// Attacks and kills the current cell
+        /// </summary>
+        /// <param name="cellToKill">The cell to be attacked</param>
         private void AttackCell(Cell cellToKill)
         {
             if (cellToKill != null)
@@ -220,6 +263,11 @@ namespace NanoVirus
             CalculateCellStats();
         }
 
+        /// <summary>
+        /// Finds the nearest tumorous cell
+        /// </summary>
+        /// <param name="virusPosition">The current position of the virus</param>
+        /// <returns>The cell and distance of the nearest tumorous cell</returns>
         private CellDistance FindNearestTumorousCell(Position virusPosition)
         {
             CellDistance nearestCell = default(CellDistance);
@@ -236,7 +284,11 @@ namespace NanoVirus
             return nearestCell;
         }
 
-        // PLEASE RENAME ME
+        /// <summary>
+        /// Finds the nearest healthy cell to the nearest tumorous cell
+        /// </summary>
+        /// <param name="tumorousCellPos">The position of the nearest tumorous cell</param>
+        /// <returns>The cell and distance of the nearest cell</returns>
         private CellDistance FindNearestHealthyCellToNearestTumorousCell(Position tumorousCellPos)
         {
             CellDistance nearestCell = default(CellDistance);
@@ -261,6 +313,10 @@ namespace NanoVirus
             return nearestCell;
         }
 
+        /// <summary>
+        /// Formats the current cycle's details so it can be written to a file
+        /// </summary>
+        /// <returns>The formatted details</returns>
         private string FormatCycleDetails()
         {
             return string.Format("Cycle: {0}\nRed blood cells: {1}\nWhite blood cells: {2}\nTumorous Cells: {3}\nVirus Action: {4}\n\n", cycleCounter, redBloodCells.Count, whiteBloodCells.Count, tumorousCellsRemaining, previousAction);
